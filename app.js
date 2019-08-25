@@ -59,17 +59,5 @@ app.post('/user-exists', urlencodedParser, function (req, res) {
 }); 
 });
 
-app.post('/create-user', urlencodedParser, function (req, res) {
-  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("mydb");
-  var myobj = {name: req.body.name, email: req.body.email, password: req.body.password};
-  dbo.collection("users").insertOne(myobj, function(err, res) {
-    if (err) throw err;
-    db.close();
-  });
-}); 
-res.send("");
-});
 
 
