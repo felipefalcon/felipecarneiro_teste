@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <title>MOTORISTAS</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script async=true type="text/javascript" src="./js/all.js"></script>		
+    </head>
+    <body>
+		<div id="left-menu-div">
+			<div style="height: 84px;"></div>
+			<a href="index.html" class="left-menu-a">
+				<i class="fas fa-home"></i>
+				<label>Inicio</label>
+			</a>
+			<a class="left-menu-a-active">
+				<i class="fas fa-car"></i>
+				<label>Motoristas</label>
+			</a>
+			<a class="left-menu-a">
+				<i class="fas fa-male"></i>
+				<label>Passageiros</label>
+			</a>
+			<a class="left-menu-a">
+				<i class="fas fa-road"></i>
+				<label>Corridas</label>
+			</a>
+		</div>
+		<div id="header-content-div">
+			<p>Consulte, atualize e cadastre motoristas</p>
+		</div>
+		
+		<ul class="nav nav-tabs text-center">
+			<li class="nav-item ml-4">
+				<a id="consultar-a" class="nav-link active" data-toggle="tab" href="#consultar-div">CONSULTAR</a>
+			</li>
+			<li class="nav-item">
+				<a id="cadastrar-a" class="nav-link" data-toggle="tab" href="#cadastrar-div">CADASTRAR</a>
+			</li>
+			<li class="nav-item">
+				<a id="editar-a" class="nav-link disabled" data-toggle="tab" href="#editar-div">ATUALIZAR</a>
+			</li>
+		</ul>
+		
+		
+		<div id="body-content-div" class="container tab-content">
+		
+			<div id="cadastrar-div" class="tab-pane fade">
+			<form action="/action_page.php">
+				<div class="form-group">
+					<label for="nome" class="col-12">Nome
+					<input type="text" class="form-control" id="nome"></label>
+					<label for="data-n" class="col-12 mt-2">Data de Nascimento
+					<input type="date" class="form-control" id="data-n"></label>
+					<label for="cpf" class="col-12 mt-2">CPF
+					<input type="text" class="form-control" id="cpf"></label>
+					<label for="modelo-c" class="col-12 mt-2">Modelo do Carro
+					<input type="text" class="form-control" id="modelo-c"></label>
+					<div class="col-12 mt-2">
+					<p class="mb-1">Status</p>
+					<label class="form-check-label" style="width: 120px; margin-left: 20px;">
+						<input type="radio" class="form-check-input" name="optradio">Ativo
+					</label>
+					<label class="form-check-label" style="width: 120px; margin-left: 20px;">
+						<input type="radio" class="form-check-input" name="optradio">Inativo
+					</label>
+					<p class="mt-2 mb-1">Sexo</p>
+					<label class="form-check-label" style="width: 120px; margin-left: 20px;">
+						<input type="radio" class="form-check-input" name="optradio2">Masculino
+					</label>
+					<label class="form-check-label" style="width: 120px; margin-left: 20px;">
+						<input type="radio" class="form-check-input" name="optradio2">Feminino
+					</label>
+					</div>
+					<div class="col-12" style="text-align: right;">
+				<button type="submit" class="btn btn-outline-success" style="font-size:18px;font-weight: bolder;"><i class="fas fa-plus-square" style="padding-right: 10px;"></i>CADASTRAR</button>
+				<button class="btn btn-outline-secondary ml-4" style="font-size:18px;font-weight: bolder;">LIMPAR</button>
+				</div>
+			</form> 
+			</div>
+			</div>
+			
+			
+			
+			
+			
+			<div id="consultar-div" class="col-12 tab-pane active">
+		
+			<input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <br>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+        <td>john@example.com</td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+        <td>mary@mail.com</td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+        <td>july@greatstuff.com</td>
+      </tr>
+      <tr>
+        <td>Anja</td>
+        <td>Ravendale</td>
+        <td>a_r@test.com</td>
+      </tr>
+    </tbody>
+  </table>
+  
+		</div>
+		
+		
+		<div id="editar-div" class="tab-pane fade">
+		</div>
+		
+		
+		
+		</div>
+    </body>
+	
+	<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+	
+</html>
