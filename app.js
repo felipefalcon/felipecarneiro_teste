@@ -35,17 +35,50 @@ var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb+srv://teste:teste123@mongo-t-qnccn.gcp.mongodb.net/test?retryWrites=true&w=majority";
 
-app.post('/connect-user', urlencodedParser, function (req, res) {
+// Verificar se usuário ja existe
+app.post('/mot-exists', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, function(err, result) {
+  dbo.collection("motorista").findOne({cpf: req.body.cpf}, function(err, result) {
     if (err) throw err;
 	if(result != null){
-		res.json(result); 
+		res.json({ ok: 'ok' }); 
 	}else{
 		res.json(result); 
 	}
+    db.close();
+  });
+}); 
+});
+
+app.post('/register-motorista', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myobj = {
+	  nome: req.body.nome, 
+	  dt_nasc: req.body.dt_nasc, 
+	  cpf: req.body.cpf, 
+	  mod_carro: req.body.mod_carro,
+	  status: req.body.status,
+	  sexo: req.body.sexo
+  };
+  dbo.collection("motorista").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    db.close();
+  });
+}); 
+res.send("");
+});
+
+app.post('/get-all-mot', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("motorista").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    res.json(result);
     db.close();
   });
 }); 

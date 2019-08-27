@@ -10,13 +10,13 @@
 		padding:0px;
 		width:100%;
 		height: 100%;
-		font-family: Calibri !important;
+		font-family: Candara !important;
 	}
 	
 	#left-menu-div{
 		-webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
 		-webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-		width: 112px;
+		width: 84px;
 		height: 100%;
 		text-align: center;
 		background-color: #215c7d;
@@ -29,15 +29,12 @@
 		padding-bottom: 4px;
 		transition: 0.5s;
 		width: 100%;
-		margin: 16px;
-		margin-bottom: 4px;
-		padding-right: 32px;
+		height: 72px;
 	}
 	
 	.left-menu-a:hover{
 		transition: 0.5s;
 		background-color: #2292a2;
-		padding-right: 0px;
 	}
 	
 	.left-menu-a-active{
@@ -46,10 +43,8 @@
 		padding-bottom: 4px;
 		transition: 0.5s;
 		width: 100%;
-		margin: 16px;
-		margin-bottom: 4px;
 		background-color: #2292a2;
-		padding-right: 0px;
+		border-left: 5px solid white;
 	}
 	
 	.left-menu-a i, .left-menu-a-active i{
@@ -59,17 +54,22 @@
 	}
 	
 	.left-menu-a label, .left-menu-a-active label{
-		font-size:18px;
-		color:white;
+		font-size: 0.6em;
+		color: white;
 		font-weight: bolder;
+		text-transform: uppercase;
+	}
+	
+	#right-div{
+		padding-left: 84px;
 	}
 	
 	#header-content-div{
 		width: 100%;
 		background-color: #f0f0f0;
 		min-height: 76px;
-		padding-left: 160px;
-		padding-right: 112px;
+		padding-left: 84px;
+		padding-right: 84px;
 		text-align: justify;
 	}
 	
@@ -83,14 +83,13 @@
 	
 	#body-content-div{
 		width: 100%;
-		padding-left: 112px;
 		padding-top: 32px;
 		color: #215c7d;
 		font-size:20px;
 	}
 	
 	.nav{
-		margin-left: 112px;
+		margin-left: 84px;
 	}
 	
 	.nav-link{
@@ -99,12 +98,50 @@
 	
 	.nav-link{
 		transition: 0.5s;
-		color: #c1bfbf !important;
+		color: #9a9a9b !important;
 		width: 128px;
+		font-weight: bolder;
 	}
 	
 	.nav-link.active{
 		transition: 0.5s;
 		color: #2292a2 !important;
-		font-weight: bolder;
+	}
+	
+	.nav-link.disabled{
+		color: #d0d0d2 !important;
+		font-weight: normal;
+	}
+	
+	.form-check-input {
+		margin-top: .5rem !important;
+	}
+	
+	input{
+		text-transform:uppercase;
+		box-shadow: none;
+	}
+	
+	input::placeholder{
+		color: #98a6bb !important;
+		font-style: italic;
+	}
+	
+	form > div > label{
+		font-weight: 800;
+	}
+	
+	#msgs-alert{
+		min-height: 78px;
+		width: 100%;
+	}
+	
+	table tr{
+		border-radius: 14px !important;
+	}
+	
+	table tr td{
+		font-size: 0.9em;
+		padding-top: 6px !important;
+		padding-bottom: 6px !important;
 	}
