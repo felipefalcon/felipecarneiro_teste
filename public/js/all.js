@@ -44,6 +44,18 @@
 		});
 	}
 	
+	function editarMot(id){
+		$('.nav-tabs a[href="#editar-div"]').removeClass('disabled');
+		$('.nav-tabs a[href="#editar-div"]').tab('show');
+		$('.nav-tabs a[href="#editar-div"]').addClass('disabled');
+		$('.nav-tabs a[href="#editar-div"]').addClass('attcolor');
+		//alert($(id).attr("name"));
+	}
+	
+	function excluirMot(id){
+		alert($(id).attr("name"));
+	}
+	
 	function getAllMot(){
 		$("#loading").fadeIn();
 		$.post("./get-all-mot")
@@ -59,14 +71,27 @@
 							"<td>"+data.cpf+"</td>"+
 							"<td>"+data.mod_carro+"</td>"+
 							"<td>"+data.status+"</td>"+
-							"<td>"+data.sexo+"</td>"+"</tr>"
+							"<td>"+data.sexo+"</td>"+
+							"<td align='center'><a onclick='editarMot(this)' name='"+data._id+"'><i class='fas fa-pen' style='color: #215c7d;'></i></a>"+
+							"<a style='margin-left: 32px;' onclick='excluirMot(this)' name='"+data._id+"'><i class='fas fa-trash' style='color: #d22e2e;'></i></a>"+
+							"</td>"+"</tr>"
 							);
 						}
 					);
-					$("#consultar-div").fadeIn();
+					$("#table-motoristas").append("</br></br>");
+					$("#consultar-div").fadeIn(600);
 			  }
 			  $("#loading").fadeOut();
 		});
 	}
+	
+	$(document).ready(function(){
+	  $("#myInput").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("#table-motoristas tr").filter(function() {
+		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	  });
+	});
 	
 	getAllMot();

@@ -103,14 +103,15 @@
 		font-weight: bolder;
 	}
 	
-	.nav-link.active{
-		transition: 0.5s;
-		color: #2292a2 !important;
-	}
-	
 	.nav-link.disabled{
 		color: #d0d0d2 !important;
 		font-weight: normal;
+	}
+	
+	.nav-link.active, .attcolor{
+		transition: 0.5s;
+		color: #2292a2 !important;
+		font-weight: bolder;
 	}
 	
 	.form-check-input {
