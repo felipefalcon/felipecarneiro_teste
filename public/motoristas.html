@@ -102,8 +102,8 @@
 				
 				
 				
-				
-				<div id="consultar-div" class="tab-pane active">
+				<div id="loading" class="spinner-border text-info" style="display: none;"></div>
+				<div id="consultar-div" class="tab-pane active" style="display: none;">
 				
 					<input class="form-control" id="myInput" type="text" placeholder="Procure pelo Nome, Data de Nascimento, CPF, Modelo do Carro, Status ou Sexo..">
 	  <br>
@@ -120,11 +120,7 @@
 		  </tr>
 		</thead>
 		<tbody id="table-motoristas">
-		  <tr>
-			<td>John</td>
-			<td>Doe</td>
-			<td>john@example.com</td>
-		  </tr>
+		  
 		</tbody>
 	  </table>
 	  </div>
@@ -145,7 +141,7 @@
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
+    $("#table-motoristas tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });

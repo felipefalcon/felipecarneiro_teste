@@ -45,6 +45,7 @@
 	}
 	
 	function getAllMot(){
+		$("#loading").fadeIn();
 		$.post("./get-all-mot")
 		  .done(function( data ) {
 			  if(data == null || data == "undefined"){
@@ -59,10 +60,12 @@
 							"<td>"+data.mod_carro+"</td>"+
 							"<td>"+data.status+"</td>"+
 							"<td>"+data.sexo+"</td>"+"</tr>"
-							);		
+							);
 						}
 					);
+					$("#consultar-div").fadeIn();
 			  }
+			  $("#loading").fadeOut();
 		});
 	}
 	
