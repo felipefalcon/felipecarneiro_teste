@@ -39,17 +39,18 @@
 	
 	.left-menu-a-active{
 		float: left;
-		padding-top: 8px;
+		padding-top: 8px !important;
 		padding-bottom: 4px;
 		transition: 0.5s;
 		width: 100%;
+		height: 72px;
 		background-color: #2292a2;
 		border-left: 5px solid white;
 	}
 	
 	.left-menu-a i, .left-menu-a-active i{
 		width: 100%;
-		font-size:32px;
+		font-size:30px;
 		color:white;
 	}
 	
@@ -135,6 +136,10 @@
 	#msgs-alert{
 		min-height: 78px;
 		width: 100%;
+	}
+	
+	.table{
+		color: #215c7d !important;
 	}
 	
 	table tr th{
