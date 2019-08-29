@@ -1,4 +1,9 @@
 
+	// Variável de cache do _id do Objeto no banco
+	var idtf;
+	// Variável de cache para atualização da tabela só quando necessário
+	var updT = false;
+
 	$("#limpar-campos1").click(function(){
 		if(confirm("Tem certeza que deseja limpar todos os campos?")){
 			$("#nome").val("");
@@ -10,6 +15,30 @@
 		}
 	});
 	
+	$("#consultar-a").click(function(){
+		if($("#consultar-div").is( ":hidden" ) && updT){
+			$("#table-motoristas").empty();
+			getAllMot();
+			updT = false;
+		}
+	});
+	
+	function hideAllMsgs(_fade){
+		if(!_fade){
+			$("#msg-e").hide();
+			$("#msg-e2").hide();
+			$("#msg-s").hide();
+			$("#msg-s2").hide();
+			$("#msg-s3").hide();
+			return;
+		}
+		$("#msg-e").fadeOut();
+		$("#msg-e2").fadeOut();
+		$("#msg-s").fadeOut();
+		$("#msg-s2").fadeOut();
+		$("#msg-s3").fadeOut();
+	}
+	
 	function verifyMotExists(){
 		event.preventDefault();
 		$.post("./mot-exists", {cpf: $("#cpf").val()})
@@ -17,8 +46,9 @@
 			  if(data == null || data == "undefined"){
 				  createMot();
 			  }else{
-				  $("#msg-s").hide();
+				  hideAllMsgs();
 				  $("#msg-e").fadeIn();
+				  setTimeout(function(){hideAllMsgs(true);}, 9000);
 			  }
 		});
 	}
@@ -39,8 +69,11 @@
 			status: status_v,
 			sexo: sexo_v
 		}).done(function(){
-			$("#msg-e").hide();
+			hideAllMsgs();
 			$("#msg-s").fadeIn();
+			$("#consultar-div").hide();
+			updT = true;
+			setTimeout(function(){hideAllMsgs(true);}, 9000);
 		});
 	}
 	
@@ -54,7 +87,39 @@
 		$('.nav-tabs a[href="#editar-div"]').addClass('disabled');
 		$('.nav-tabs a[href="#editar-div"]').addClass('attcolor');
 		getOneMot(id);
-		//alert($(id).attr("name"));
+	}
+	
+	function updateMot(){
+		event.preventDefault();
+		var status_v = "INATIVO", sexo_v = "FEMININO";
+		if($("#ativo-e").is(":checked")){
+			status_v = "ATIVO"
+		}
+		if($("#masculino-e").is(":checked")){
+			sexo_v = "MASCULINO"
+		}
+		$.post("./upd-mot", {
+			_id: idtf,
+			nome: $("#nome-e").val().toUpperCase(), 
+			dt_nasc: $("#data-n-e").val(), 
+			cpf: $("#cpf-e").val().toUpperCase(), 
+			mod_carro: $("#modelo-c-e").val().toUpperCase(),
+			status: status_v,
+			sexo: sexo_v
+			})
+		  .done(function( data ) {
+			  if(data == null || data == "undefined"){
+					hideAllMsgs();
+					$("#msg-e2").fadeIn();
+					setTimeout(function(){hideAllMsgs(true);}, 9000);
+			  }else{
+					hideAllMsgs();
+					$("#msg-s2").fadeIn();
+					$("#consultar-div").hide();
+					updT = true;
+					setTimeout(function(){hideAllMsgs(true);}, 9000);
+			  }
+		});
 	}
 	
 	function getOneMot(id){
@@ -78,12 +143,39 @@
 					$("#masculino-e").prop('checked', true);
 					$("#feminino-e").prop('checked', false);
 				}
+				idtf = $(id).attr("name");
 				$("#loading").fadeOut();
 		});
 	}
 	
 	function excluirMot(id){
-		alert($(id).attr("name"));
+		
+	bootbox.dialog({
+	title: 'Exclusão de registro',
+	message: "Você tem certeza que deseja excluir o registro?<br>Esta operação não pode ser desfeita.",
+	centerVertical: true,
+		buttons: {
+			ok: {
+				label: ' SIM ',
+				className: 'btn btn-outline-danger',
+				callback: function(){
+					$.post("./del-mot", {_id: $(id).attr("name")}).done(function(data){
+						idtf = "";
+						hideAllMsgs();
+						$("#msg-s3").fadeIn();
+						$("#table-motoristas").empty();
+						getAllMot();
+						updT = false;
+						setTimeout(function(){hideAllMsgs(true);}, 9000);
+					});
+				}
+			},
+			cancel: {
+				label: 'NÃO',
+				className: 'btn btn-outline-secondary'
+			}
+		},
+	});
 	}
 	
 	function getAllMot(){
@@ -97,12 +189,12 @@
 						function(data){
 						$("#table-motoristas").append("<tr>"+
 							"<td>"+data.nome+"</td>"+
-							"<td>"+data.dt_nasc+"</td>"+
-							"<td>"+data.cpf+"</td>"+
+							"<td align='center'>"+data.dt_nasc+"</td>"+
+							"<td align='center'>"+data.cpf+"</td>"+
 							"<td>"+data.mod_carro+"</td>"+
-							"<td>"+data.status+"</td>"+
-							"<td>"+data.sexo+"</td>"+
-							"<td align='center'><a onclick='editarMot(this)' name='"+data._id+"'><i class='fas fa-pen' style='color: #215c7d;'></i></a>"+
+							"<td align='center'>"+data.status+"</td>"+
+							"<td align='center'>"+data.sexo+"</td>"+
+							"<td align='center' style='min-width: 91px;'><a onclick='editarMot(this)' name='"+data._id+"'><i class='fas fa-pen' style='color: #215c7d;'></i></a>"+
 							"<a style='margin-left: 32px;' onclick='excluirMot(this)' name='"+data._id+"'><i class='fas fa-trash' style='color: #d22e2e;'></i></a>"+
 							"</td>"+"</tr>"
 							);

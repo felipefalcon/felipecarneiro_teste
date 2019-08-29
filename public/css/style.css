@@ -137,14 +137,15 @@
 		width: 100%;
 	}
 	
-	table tr{
-		border-radius: 14px !important;
+	table tr th{
+		vertical-align: middle !important;
 	}
 	
 	table tr td{
 		font-size: 0.9em;
 		padding-top: 6px !important;
 		padding-bottom: 6px !important;
+		vertical-align: middle !important;
 	}
 	
 	#loading{

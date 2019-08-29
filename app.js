@@ -63,6 +63,43 @@ app.post('/get-mot', urlencodedParser, function (req, res) {
 }); 
 });
 
+app.post('/upd-mot', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myquery = {_id: new mongo.ObjectID(req.body._id)};
+  var newvalues = { $set: {
+	  nome: req.body.nome, 
+	  dt_nasc: req.body.dt_nasc, 
+	  cpf: req.body.cpf, 
+	  mod_carro: req.body.mod_carro,
+	  status: req.body.status,
+	  sexo: req.body.sexo
+  }};
+  dbo.collection("motorista").updateOne(myquery, newvalues, function(err, result) {
+    if (err) throw err;
+	if(result != null){
+		res.json({ ok: 'ok' }); 
+	}else{
+		res.json(result); 
+	}
+    db.close();
+  });
+}); 
+});
+
+app.post('/del-mot', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("motorista").deleteOne({_id: new mongo.ObjectID(req.body._id)}, function(err, result) {
+    if (err) throw err;
+	res.json(result);
+    db.close();
+  });
+}); 
+});
+
 app.post('/mot-exists', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;

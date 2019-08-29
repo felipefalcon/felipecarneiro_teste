@@ -11,6 +11,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="./js/bootbox.min.js"></script>
 		<script async=true type="text/javascript" src="./js/all.js"></script>		
     </head>
     <body>
@@ -56,8 +57,17 @@
 					<div id="msg-e" class="alert alert-danger" style="display: none;">
 						<strong>Erro!</strong> Houve um erro ao inserir o registro, verifique se o registro não é repetido ou tente novamente.
 					</div>
+					<div id="msg-e2" class="alert alert-danger" style="display: none;">
+						<strong>Erro!</strong> Houve um erro ao editar o registro, verifique se o registro existe ou tente novamente.
+					</div>
 					<div id="msg-s" class="alert alert-success" style="display: none;">
 						<strong>Successo!</strong> O registro foi inserido com sucesso.
+					</div>
+					<div id="msg-s2" class="alert alert-success" style="display: none;">
+						<strong>Successo!</strong> O registro foi atualizado com sucesso.
+					</div>
+					<div id="msg-s3" class="alert alert-warning" style="display: none;">
+						<strong>Successo!</strong> O registro foi excluído com sucesso.
 					</div>
 				</div>
 				<div id="cadastrar-div" class="tab-pane fade">
@@ -103,16 +113,16 @@
 				<div id="consultar-div" class="tab-pane active" style="display: none;">
 					<input class="form-control" id="myInput" type="text" placeholder="Procure pelo Nome, Data de Nascimento, CPF, Modelo do Carro, Status ou Sexo..">
 					<br>
-					<div class="table-responsive">
-						<table class="table table-bordered">
+					<div class="table-responsive table-responsive-md">
+						<table class="table table-sm table-bordered">
 						<thead>
 							<tr>
-								<th>Nome</th>
-								<th>Data Nasc.</th>
-								<th>CPF</th>
+								<th style='min-width: 300px;overflow: hidden;'>Nome</th>
+								<th style='text-align: center;'>Dt. Nasc.</th>
+								<th style='text-align: center;'>CPF</th>
 								<th>Modelo Carro</th>
-								<th>Status</th>
-								<th>Sexo</th>
+								<th style='text-align: center;'>Status</th>
+								<th style='text-align: center;'>Sexo</th>
 							</tr>
 						</thead>
 						<tbody id="table-motoristas">	  
@@ -123,7 +133,7 @@
 			
 			
 				<div id="editar-div" class="tab-pane fade">
-				<form id="editar-form" onsubmit="verifyMotExists();" method="post" autocomplete="off">
+				<form id="editar-form" onsubmit="updateMot();" method="post" autocomplete="off">
 					<div class="form-group row">
 						<label for="nome" class="col-sm-12 col-md-8">Nome
 						<input type="text" class="form-control" id="nome-e" name="nome" required></label>
