@@ -45,11 +45,41 @@
 	}
 	
 	function editarMot(id){
+		$("#nome-e").val("");
+		$("#data-n-e").val("");
+		$("#cpf-e").val("");
+		$("#modelo-c-e").val("");
 		$('.nav-tabs a[href="#editar-div"]').removeClass('disabled');
 		$('.nav-tabs a[href="#editar-div"]').tab('show');
 		$('.nav-tabs a[href="#editar-div"]').addClass('disabled');
 		$('.nav-tabs a[href="#editar-div"]').addClass('attcolor');
+		getOneMot(id);
 		//alert($(id).attr("name"));
+	}
+	
+	function getOneMot(id){
+		$("#loading").fadeIn();
+		$.post("./get-mot", {_id: $(id).attr("name")}).done(function( data ) {
+				$("#nome-e").val(data.nome);
+				$("#data-n-e").val(data.dt_nasc);
+				$("#cpf-e").val(data.cpf);
+				$("#modelo-c-e").val(data.mod_carro);
+				if(data.status != "ATIVO"){
+					$("#ativo-e").prop('checked', false);
+					$("#inativo-e").prop('checked', true);
+				}else{
+					$("#ativo-e").prop('checked', true);
+					$("#inativo-e").prop('checked', false);
+				}
+				if(data.sexo != "MASCULINO"){
+					$("#masculino-e").prop('checked', false);
+					$("#feminino-e").prop('checked', true);
+				}else{
+					$("#masculino-e").prop('checked', true);
+					$("#feminino-e").prop('checked', false);
+				}
+				$("#loading").fadeOut();
+		});
 	}
 	
 	function excluirMot(id){

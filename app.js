@@ -35,7 +35,34 @@ var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb+srv://teste:teste123@mongo-t-qnccn.gcp.mongodb.net/test?retryWrites=true&w=majority";
 
-// Verificar se usuário ja existe
+app.post('/mot-exists', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("motorista").findOne({cpf: req.body.cpf}, function(err, result) {
+    if (err) throw err;
+	if(result != null){
+		res.json({ ok: 'ok' }); 
+	}else{
+		res.json(result); 
+	}
+    db.close();
+  });
+}); 
+});
+
+app.post('/get-mot', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("motorista").findOne({_id: new mongo.ObjectID(req.body._id)}, function(err, result) {
+    if (err) throw err;
+	res.json(result);
+    db.close();
+  });
+}); 
+});
+
 app.post('/mot-exists', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
