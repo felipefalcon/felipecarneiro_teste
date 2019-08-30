@@ -60,6 +60,9 @@
 					<div id="msg-e2" class="alert alert-danger" style="display: none;">
 						<strong>Erro!</strong> Houve um erro ao editar o registro, verifique se o registro existe ou tente novamente.
 					</div>
+					<div id="msg-e3" class="alert alert-info" style="display: none;">
+						<strong>Erro!</strong> Houve um erro ao atualizar o registro, o registro não tem nenhuma alteração nova.
+					</div>
 					<div id="msg-s" class="alert alert-success" style="display: none;">
 						<strong>Successo!</strong> O registro foi inserido com sucesso.
 					</div>
@@ -103,7 +106,7 @@
 						</div>
 						<div class="col-12 mt-5" style="text-align: right;">
 					<button type="submit" class="col-sm-12 col-md-2 btn btn-outline-success mt-2" style="font-weight: bolder;">CADASTRAR</button>
-					<button id="limpar-campos1" class="col-sm-12 col-md-2 btn btn-outline-secondary mt-2" style="font-weight: bolder;">LIMPAR</button>
+					<input type="button" id="limpar-campos1" class="col-sm-12 col-md-2 btn btn-outline-secondary mt-2" style="font-weight: bolder;" value="LIMPAR">
 					</div>
 				</form>
 				</div>
@@ -111,6 +114,7 @@
 				
 				<div id="loading" class="spinner-border text-info" style="display: none;"></div>
 				<div id="consultar-div" class="tab-pane active" style="display: none;">
+				<label style="font-weight: bolder; margin-bottom: 0px;">Pesquisar</label>
 					<input class="form-control" id="myInput" type="text" placeholder="Procure pelo Nome, Data de Nascimento, CPF, Modelo do Carro, Status ou Sexo..">
 					<br>
 					<div class="table-responsive table-responsive-md">
@@ -165,7 +169,7 @@
 						</div>
 						<div class="col-12 mt-5" style="text-align: right;">
 					<button type="submit" class="col-sm-12 col-md-2 btn btn-outline-success mt-2" style="font-weight: bolder;">ATUALIZAR</button>
-					<button id="l" class="col-sm-12 col-md-2 btn btn-outline-secondary mt-2" style="font-weight: bolder;">VOLTAR</button>
+					<input type="button" id="voltar-m" class="col-sm-12 col-md-2 btn btn-outline-secondary mt-2" style="font-weight: bolder;" value="VOLTAR">
 					</div>
 				</form>
 				</div>

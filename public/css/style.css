@@ -21,6 +21,7 @@
 		text-align: center;
 		background-color: #215c7d;
 		position: fixed;
+		z-index: 150;
 	}
 	
 	.left-menu-a{
@@ -140,10 +141,13 @@
 	
 	.table{
 		color: #215c7d !important;
+		background-color: #f0f0f0;
+		margin-bottom: 0px !important;
 	}
 	
 	table tr th{
 		vertical-align: middle !important;
+		background-color: white;
 	}
 	
 	table tr td{
@@ -151,6 +155,7 @@
 		padding-top: 6px !important;
 		padding-bottom: 6px !important;
 		vertical-align: middle !important;
+		background-color: white;
 	}
 	
 	#loading{
@@ -160,4 +165,70 @@
 		position: fixed;
 		right: 24px;
 		bottom: 24px;
+	}
+	
+	@media all and (max-width: 480px) {
+		#left-menu-div {
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			width: 100%;
+			height: 72px;
+			text-align: center;
+			background-color: #215c7d;
+			position: fixed;
+		}
+		
+		#left-menu-div > div:nth-child(1){
+			display: none;
+		}
+		
+		.left-menu-a{
+			float: left;
+			padding-top: 8px;
+			padding-bottom: 4px;
+			transition: 0.5s;
+			width: 84px;
+			height: 72px;
+		}
+		
+		.left-menu-a:hover{
+			transition: 0.5s;
+			background-color: #2292a2;
+		}
+		
+		.left-menu-a-active{
+			float: left;
+			padding-top: 8px !important;
+			padding-bottom: 4px;
+			transition: 0.5s;
+			width: 84px;
+			height: 72px;
+			background-color: #2292a2;
+			border-bottom: 4px solid white;
+			border-left: 0px;
+		}
+		
+		#header-content-div {
+			padding-left: 6px;
+			padding-right: 6px;
+			padding-top: 72px;
+		}
+		
+		#header-content-div p {
+			font-size: 1.2em;
+			text-align: center;
+		}
+		
+		#right-div{
+			padding-left: 0;
+		}
+		
+		.nav-link{
+			width: 112px;
+			padding: 8px !important;
+		}
+		
+		li.nav-item:nth-child(1){
+			margin-left: 6px !important;
+		}
 	}
