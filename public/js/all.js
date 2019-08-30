@@ -5,14 +5,28 @@
 	var updT = false;
 
 	$("#limpar-campos1").click(function(){
-		if(confirm("Tem certeza que deseja limpar todos os campos?")){
-			$("#nome").val("");
-			$("#data-n").val("");
-			$("#cpf").val("");
-			$("#modelo-c").val("");
-			$("#msg-e").hide();
-			$("#msg-s").hide();
-		}
+		bootbox.dialog({
+		title: 'Limpar campos',
+		message: "Você tem certeza que deseja limpar todos os campos?",
+		centerVertical: true,
+			buttons: {
+				ok: {
+					label: ' SIM ',
+					className: 'btn btn-outline-info',
+					callback: function(){
+						$("#nome").val("");
+						$("#data-n").val("");
+						$("#cpf").val("");
+						$("#modelo-c").val("");
+						hideAllMsgs();
+					}
+				},
+				cancel: {
+					label: 'NÃO',
+					className: 'btn btn-outline-secondary'
+				}
+			},
+		});
 	});
 	
 	$("#consultar-a").click(function(){
@@ -148,34 +162,33 @@
 		});
 	}
 	
-	function excluirMot(id){
-		
-	bootbox.dialog({
-	title: 'Exclusão de registro',
-	message: "Você tem certeza que deseja excluir o registro?<br>Esta operação não pode ser desfeita.",
-	centerVertical: true,
-		buttons: {
-			ok: {
-				label: ' SIM ',
-				className: 'btn btn-outline-danger',
-				callback: function(){
-					$.post("./del-mot", {_id: $(id).attr("name")}).done(function(data){
-						idtf = "";
-						hideAllMsgs();
-						$("#msg-s3").fadeIn();
-						$("#table-motoristas").empty();
-						getAllMot();
-						updT = false;
-						setTimeout(function(){hideAllMsgs(true);}, 9000);
-					});
+	function excluirMot(id){	
+		bootbox.dialog({
+		title: 'Exclusão de registro',
+		message: "Você tem certeza que deseja excluir o registro?<br>Esta operação não pode ser desfeita.",
+		centerVertical: true,
+			buttons: {
+				ok: {
+					label: ' SIM ',
+					className: 'btn btn-outline-danger',
+					callback: function(){
+						$.post("./del-mot", {_id: $(id).attr("name")}).done(function(data){
+							idtf = "";
+							hideAllMsgs();
+							$("#msg-s3").fadeIn();
+							$("#table-motoristas").empty();
+							getAllMot();
+							updT = false;
+							setTimeout(function(){hideAllMsgs(true);}, 9000);
+						});
+					}
+				},
+				cancel: {
+					label: 'NÃO',
+					className: 'btn btn-outline-secondary'
 				}
 			},
-			cancel: {
-				label: 'NÃO',
-				className: 'btn btn-outline-secondary'
-			}
-		},
-	});
+		});
 	}
 	
 	function getAllMot(){
@@ -202,6 +215,7 @@
 					);
 					$("#table-motoristas").append("</br></br>");
 					$("#consultar-div").fadeIn(600);
+					$('.nav-tabs a[href="#cadastrar-div"]').removeClass('disabled');
 			  }
 			  $("#loading").fadeOut();
 		});
@@ -217,3 +231,4 @@
 	});
 	
 	getAllMot();
+	
