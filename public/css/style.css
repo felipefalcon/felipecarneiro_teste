@@ -142,7 +142,6 @@
 	.table{
 		color: #215c7d !important;
 		background-color: #f0f0f0;
-		margin-bottom: 0px !important;
 	}
 	
 	table tr th{
@@ -230,5 +229,9 @@
 		
 		li.nav-item:nth-child(1){
 			margin-left: 6px !important;
+		}
+		
+		.table{
+			font-size: 0.9em;
 		}
 	}

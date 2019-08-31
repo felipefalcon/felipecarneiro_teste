@@ -12,6 +12,7 @@
 			getAllMot();
 			updT = false;
 		}
+		$("html, body").animate({ scrollTop: 0 }, "slow");
 	});
 	
 	$("#limpar-campos1").click(function(){
@@ -66,7 +67,7 @@
 	function verifyMotExists(){
 		event.preventDefault();
 		$.post("./mot-exists", {cpf: $("#cpf").val()})
-		  .done(function( data ) {
+		.done(function( data ) {
 			  if(data == null || data == "undefined"){
 				  createMot();
 			  }else{
@@ -75,6 +76,7 @@
 				  setTimeout(function(){hideAllMsgs(true);}, 9000);
 			  }
 		});
+		$("html, body").animate({ scrollTop: 0 }, "slow");
 	}
 	// Converte a String de Data_Nascimento para DD-MM-YYYY ou YYYY-MM-DD
 	function convertDateTo(data, reverse = false){
@@ -290,6 +292,7 @@
 					$('.nav-tabs a[href="#cadastrar-div"]').removeClass('disabled');
 			  }
 		});
+		$("html, body").animate({ scrollTop: 0 }, "slow");
 		$("#loading").fadeOut();
 	}
 	
@@ -302,5 +305,6 @@
 	  });
 	});
 	
+	$("#loading").fadeIn();
 	getAllMot();
 	
