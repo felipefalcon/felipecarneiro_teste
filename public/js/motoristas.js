@@ -6,6 +6,14 @@
 	// Variável de cache para atualização só quando houver alterações nos dados 
 	var register = {};
 
+	$("#consultar-a").click(function(){
+		if($("#consultar-div").is( ":hidden" ) && updT){
+			$("#table-motoristas").empty();
+			getAllMot();
+			updT = false;
+		}
+	});
+	
 	$("#limpar-campos1").click(function(){
 		bootbox.dialog({
 		title: 'Limpar campos',
@@ -31,14 +39,6 @@
 				}
 			},
 		});
-	});
-	
-	$("#consultar-a").click(function(){
-		if($("#consultar-div").is( ":hidden" ) && updT){
-			$("#table-motoristas").empty();
-			getAllMot();
-			updT = false;
-		}
 	});
 	
 	$("#voltar-m").click(function(){
@@ -93,7 +93,7 @@
 		if($("#masculino").is(":checked")){
 			sexo_v = "MASCULINO"
 		}
-		$.post("./register-motorista", { 
+		$.post("./crt-mot", { 
 			nome: $("#nome").val().toUpperCase(), 
 			dt_nasc: convertDateTo($("#data-n").val()), 
 			cpf: $("#cpf").val().toUpperCase(), 
@@ -294,7 +294,7 @@
 	}
 	
 	$(document).ready(function(){
-	  $("#myInput").on("keyup", function() {
+	  $("#search").on("keyup", function() {
 		var value = $(this).val().toLowerCase();
 		$("#table-motoristas tr").filter(function() {
 		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
