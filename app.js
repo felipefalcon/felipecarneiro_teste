@@ -136,10 +136,6 @@ app.post('/get-all-mot-a', urlencodedParser, function (req, res) {
 }); 
 });
 
-
-
-
-
 // ROTAS - PASSAGEIRO
 app.post('/pas-exists', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
@@ -234,10 +230,6 @@ app.post('/get-all-pas', urlencodedParser, function (req, res) {
 }); 
 });
 
-
-
-
-
 // ROTAS - CORRIDA
 app.post('/cor-exists', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
@@ -329,4 +321,3 @@ app.post('/get-all-cor', urlencodedParser, function (req, res) {
   });
 }); 
 });
-

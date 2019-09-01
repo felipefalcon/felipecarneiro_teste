@@ -121,7 +121,6 @@
 			$("#consultar-div").hide();
 			updT = true;
 			setTimeout(function(){hideAllMsgs(true);}, 9000);
-			
 		});
 		$("#loading").fadeOut();
 	}
@@ -302,6 +301,18 @@
 	  $("#search-cor1").on("keyup", function() {
 		var value = $(this).val().toLowerCase();
 		$("#table-motoristas-cor tr").filter(function() {
+		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	  });
+	  $("#search-cor2").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("#table-motoristas-pas tr").filter(function() {
+		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	  });
+	  $("#search").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("#table-motoristas tr").filter(function() {
 		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		});
 	  });
