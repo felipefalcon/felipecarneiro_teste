@@ -5,14 +5,14 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <title>MOTORISTAS</title>
+        <title>PASSAGEIROS</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		<script src="./js/bootbox.min.js"></script>
-		<script async=true type="text/javascript" src="./js/motoristas.js"></script>		
+		<script async=true type="text/javascript" src="./js/passageiros.js"></script>		
     </head>
     <body>
 		<div id="left-menu-div">
@@ -21,11 +21,11 @@
 				<i class="fas fa-home"></i>
 				<label>Inicio</label>
 			</a>
-			<a class="left-menu-a-active">
+			<a href="motoristas.html" class="left-menu-a">
 				<i class="fas fa-car"></i>
 				<label>Motoristas</label>
 			</a>
-			<a href="passageiros.html" class="left-menu-a">
+			<a class="left-menu-a-active">
 				<i class="fas fa-male"></i>
 				<label>Passageiros</label>
 			</a>
@@ -36,7 +36,7 @@
 		</div>
 		<div id="right-div">
 			<div id="header-content-div">
-				<p style="margin-bottom: 0px !important;">Consulte, atualize e cadastre motoristas</p>
+				<p style="margin-bottom: 0px !important;">Consulte, atualize e cadastre passageiros</p>
 			</div>
 			
 			<ul class="nav nav-tabs text-center" style="margin-left: 0; background-color: #f0f0f0;">
@@ -50,8 +50,6 @@
 					<a id="editar-a" class="nav-link disabled" data-toggle="tab" href="#editar-div">ATUALIZAR</a>
 				</li>
 			</ul>
-			
-			
 			<div id="body-content-div" class="container tab-content">
 				<div id="msgs-alert">
 					<div id="msg-e" class="alert alert-danger" style="display: none;">
@@ -76,24 +74,13 @@
 				<div id="cadastrar-div" class="tab-pane fade">
 				<form id="cadastrar-form" onsubmit="verifyMotExists();" method="post" autocomplete="off">
 					<div class="form-group row">
-						<label for="nome" class="col-sm-12 col-md-8">Nome
+						<label for="nome" class="col-sm-12 col-md-8">Nome do Passageiro
 						<input type="text" class="form-control" id="nome" name="nome" required></label>
 						<label for="data-n" class="col-sm-12 col-md-4">Data de Nascimento
 						<input type="date" class="form-control" id="data-n" name="dt_nasc" required></label>
 						<label for="cpf" class="col-sm-12 col-md-5">CPF
 						<input type="text" class="form-control" id="cpf" name="cpf" pattern=".{11,11}" title="O CPF deve conter 11 dígitos" required></label>
-						<label for="modelo-c" class="col-sm-12 col-md-7">Modelo do Carro
-						<input type="text" class="form-control" id="modelo-c" name="mod_carro" required></label>
 						<div class="container mt-1">
-							<p class="mb-1" style="font-weight: 800;">Status</p>
-							<div class="col-12" style="border: 1px solid #ced4da; border-radius: .25rem; min-height: 39px; padding-top: 4px;">
-								<label class="form-check-label" style="width: 120px; margin-left: 20px;">
-									<input id="ativo" type="radio" class="form-check-input" name="optradio" checked="true">ATIVO
-								</label>
-								<label class="form-check-label" style="width: 120px; margin-left: 20px;">
-									<input type="radio" class="form-check-input" name="optradio">INATIVO
-								</label>
-							</div>
 							<p class="mt-3 mb-1" style="font-weight: 800;">Sexo</p>
 							<div class="col-12" style="border: 1px solid #ced4da; border-radius: .25rem; min-height: 39px; padding-top: 4px;">
 								<label class="form-check-label" style="width: 120px; margin-left: 20px;">
@@ -110,12 +97,11 @@
 					</div>
 				</form>
 				</div>
-				</div>
-				
+				</div>	
 				<div id="loading" class="spinner-border text-info" style="display: none;"></div>
 				<div id="consultar-div" class="tab-pane active" style="display: none;">
 				<label style="font-weight: 800; margin-bottom: 0px;">Pesquisar</label>
-					<input class="form-control" id="search" type="text" placeholder="Procure pelo Nome, Data de Nascimento, CPF, Modelo do Carro, Status ou Sexo..">
+					<input class="form-control" id="search" type="text" placeholder="Procure pelo Nome, Data de Nascimento, CPF ou Sexo..">
 					<br>
 					<div class="table-responsive table-responsive-md">
 						<table class="table table-sm table-bordered">
@@ -124,8 +110,6 @@
 								<th style='min-width: 300px;overflow: hidden;'>Nome</th>
 								<th style='text-align: center;'>Dt. Nasc.</th>
 								<th style='text-align: center;'>CPF</th>
-								<th>Modelo Carro</th>
-								<th style='text-align: center;'>Status</th>
 								<th style='text-align: center;'>Sexo</th>
 							</tr>
 						</thead>
@@ -134,29 +118,16 @@
 						</table>
 					</div>
 				</div>
-			
-			
 				<div id="editar-div" class="tab-pane fade">
 				<form id="editar-form" onsubmit="updateMot();" method="post" autocomplete="off">
 					<div class="form-group row">
-						<label for="nome" class="col-sm-12 col-md-8">Nome
+						<label for="nome" class="col-sm-12 col-md-8">Nome do Passageiro
 						<input type="text" class="form-control" id="nome-e" name="nome" required></label>
 						<label for="data-n" class="col-sm-12 col-md-4">Data de Nascimento
 						<input type="date" class="form-control" id="data-n-e" name="dt_nasc" required></label>
 						<label for="cpf" class="col-sm-12 col-md-5">CPF
 						<input type="text" class="form-control" id="cpf-e" name="cpf" pattern=".{11,11}" title="O CPF deve conter 11 dígitos" required></label>
-						<label for="modelo-c" class="col-sm-12 col-md-7">Modelo do Carro
-						<input type="text" class="form-control" id="modelo-c-e" name="mod_carro" required></label>
 						<div class="container mt-1">
-							<p class="mb-1" style="font-weight: 800;">Status</p>
-							<div class="col-12" style="border: 1px solid #ced4da; border-radius: .25rem; min-height: 39px; padding-top: 4px;">
-								<label class="form-check-label" style="width: 120px; margin-left: 20px;">
-									<input id="ativo-e" type="radio" class="form-check-input" name="optradio" checked="true">ATIVO
-								</label>
-								<label class="form-check-label" style="width: 120px; margin-left: 20px;">
-									<input id="inativo-e" type="radio" class="form-check-input" name="optradio">INATIVO
-								</label>
-							</div>
 							<p class="mt-3 mb-1" style="font-weight: 800;">Sexo</p>
 							<div class="col-12" style="border: 1px solid #ced4da; border-radius: .25rem; min-height: 39px; padding-top: 4px;">
 								<label class="form-check-label" style="width: 120px; margin-left: 20px;">
@@ -174,11 +145,7 @@
 				</form>
 				</div>
 				</div>
-			
-			
-			
 			</div>
 		</div>
     </body>
-	
 </html>

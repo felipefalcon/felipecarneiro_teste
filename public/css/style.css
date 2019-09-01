@@ -157,6 +157,28 @@
 		background-color: white;
 	}
 	
+	#table-cons-mot{
+		background-color: white;
+		transition: 0.5s;
+	}
+	
+	#table-cons-mot td{
+		background-color: transparent;
+	}
+	
+	#table-cons-pas{
+		background-color: white;
+		transition: 0.5s;
+	}
+	
+	#table-cons-pas td{
+		background-color: transparent;
+	}
+	
+	div.table-responsive:nth-child(3){
+		max-height: 205px;
+	}
+	
 	#loading{
 		margin: 0;
 		width: 48px;
@@ -233,5 +255,9 @@
 		
 		.table{
 			font-size: 0.9em;
+		}
+		
+		div.table-responsive:nth-child(3){
+			max-height: 208px;
 		}
 	}

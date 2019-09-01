@@ -6,6 +6,15 @@
 	// Variável de cache para atualização só quando houver alterações nos dados 
 	var register = {};
 
+	$("#consultar-a").click(function(){
+		if($("#consultar-div").is( ":hidden" ) && updT){
+			$("#table-motoristas").empty();
+			getAllMot();
+			updT = false;
+		}
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	});
+	
 	$("#limpar-campos1").click(function(){
 		bootbox.dialog({
 		title: 'Limpar campos',
@@ -20,7 +29,6 @@
 						$("#nome").val("");
 						$("#data-n").val("");
 						$("#cpf").val("");
-						$("#modelo-c").val("");
 						hideAllMsgs();
 						$("#loading").fadeOut();
 					}
@@ -31,14 +39,6 @@
 				}
 			},
 		});
-	});
-	
-	$("#consultar-a").click(function(){
-		if($("#consultar-div").is( ":hidden" ) && updT){
-			$("#table-motoristas").empty();
-			getAllMot();
-			updT = false;
-		}
 	});
 	
 	$("#voltar-m").click(function(){
@@ -65,8 +65,8 @@
 	
 	function verifyMotExists(){
 		event.preventDefault();
-		$.post("./mot-exists", {cpf: $("#cpf").val()})
-		  .done(function( data ) {
+		$.post("./pas-exists", {cpf: $("#cpf").val()})
+		.done(function( data ) {
 			  if(data == null || data == "undefined"){
 				  createMot();
 			  }else{
@@ -75,6 +75,7 @@
 				  setTimeout(function(){hideAllMsgs(true);}, 9000);
 			  }
 		});
+		$("html, body").animate({ scrollTop: 0 }, "slow");
 	}
 	// Converte a String de Data_Nascimento para DD-MM-YYYY ou YYYY-MM-DD
 	function convertDateTo(data, reverse = false){
@@ -86,19 +87,14 @@
 
 	function createMot(){
 		$("#loading").fadeIn();
-		var status_v = "INATIVO", sexo_v = "FEMININO";
-		if($("#ativo").is(":checked")){
-			status_v = "ATIVO"
-		}
+		var sexo_v = "FEMININO";
 		if($("#masculino").is(":checked")){
 			sexo_v = "MASCULINO"
 		}
-		$.post("./register-motorista", { 
+		$.post("./crt-pas", { 
 			nome: $("#nome").val().toUpperCase(), 
 			dt_nasc: convertDateTo($("#data-n").val()), 
 			cpf: $("#cpf").val().toUpperCase(), 
-			mod_carro: $("#modelo-c").val().toUpperCase(),
-			status: status_v,
 			sexo: sexo_v
 		}).done(function(){
 			hideAllMsgs();
@@ -114,7 +110,6 @@
 		$("#nome-e").val("");
 		$("#data-n-e").val("");
 		$("#cpf-e").val("");
-		$("#modelo-c-e").val("");
 		getOneMot(id);
 	}
 	
@@ -131,14 +126,6 @@
 			register.cpf = $("#cpf-e").val().toUpperCase();
 			return false;
 		}
-		if(register.mod_carro != $("#modelo-c-e").val().toUpperCase()){
-			register.mod_carro = $("#modelo-c-e").val().toUpperCase();
-			return false;
-		}
-		if(register.status != status_v){
-			register.status = status_v;
-			return false;
-		}
 		if(register.sexo != sexo_v){
 			register.sexo = sexo_v;
 			return false;
@@ -148,7 +135,7 @@
 	
 	function updateMot(){
 		event.preventDefault();
-		var status_v = "INATIVO", sexo_v = "FEMININO";
+		var sexo_v = "FEMININO";
 		if($("#ativo-e").is(":checked")){
 			status_v = "ATIVO"
 		}
@@ -162,13 +149,11 @@
 			return;
 		}
 		$("#loading").fadeIn();
-		$.post("./upd-mot", {
+		$.post("./upd-pas", {
 			_id: idtf,
 			nome: $("#nome-e").val().toUpperCase(), 
 			dt_nasc: convertDateTo($("#data-n-e").val()), 
 			cpf: $("#cpf-e").val().toUpperCase(), 
-			mod_carro: $("#modelo-c-e").val().toUpperCase(),
-			status: status_v,
 			sexo: sexo_v
 			})
 		.done(function( data ) {
@@ -190,18 +175,10 @@
 	
 	function getOneMot(id){
 		$("#loading").fadeIn();
-		$.post("./get-mot", {_id: $(id).attr("name")}).done(function( data ) {
+		$.post("./get-pas", {_id: $(id).attr("name")}).done(function( data ) {
 				$("#nome-e").val(data.nome);
 				$("#data-n-e").val(convertDateTo(data.dt_nasc, true));
 				$("#cpf-e").val(data.cpf);
-				$("#modelo-c-e").val(data.mod_carro);
-				if(data.status != "ATIVO"){
-					$("#ativo-e").prop('checked', false);
-					$("#inativo-e").prop('checked', true);
-				}else{
-					$("#ativo-e").prop('checked', true);
-					$("#inativo-e").prop('checked', false);
-				}
 				if(data.sexo != "MASCULINO"){
 					$("#masculino-e").prop('checked', false);
 					$("#feminino-e").prop('checked', true);
@@ -213,8 +190,6 @@
 				register.nome = data.nome;
 				register.data_nasc = convertDateTo(data.dt_nasc, true);
 				register.cpf = data.cpf;
-				register.mod_carro = data.mod_carro;
-				register.status = data.status;
 				register.sexo = data.sexo;
 				idtf = $(id).attr("name");
 				$("#loading").fadeOut();
@@ -237,7 +212,7 @@
 					callback: function(){
 						hideAllMsgs();
 						$("#loading").fadeIn();
-						$.post("./del-mot", {_id: $(id).attr("name")}).done(function(data){
+						$.post("./del-pas", {_id: $(id).attr("name")}).done(function(data){
 							idtf = "";
 							$("#msg-s3").fadeIn();
 							getAllMot();
@@ -255,7 +230,7 @@
 	}
 	
 	function getAllMot(){
-		$.post("./get-all-mot")
+		$.post("./get-all-pas")
 		  .done(function( data ) {
 			  if(data == null || data == "undefined"){
 				  
@@ -267,8 +242,6 @@
 							"<td>"+data.nome+"</td>"+
 							"<td align='center'>"+data.dt_nasc+"</td>"+
 							"<td align='center'>"+data.cpf+"</td>"+
-							"<td>"+data.mod_carro+"</td>"+
-							"<td align='center'>"+data.status+"</td>"+
 							"<td align='center'>"+data.sexo+"</td>"+
 							"<td align='center' style='min-width: 91px;'><a onclick='editarMot(this)' name='"+data._id+"'><i class='fas fa-pen' style='color: #215c7d;'></i></a>"+
 							"<a style='margin-left: 32px;' onclick='excluirMot(this)' name='"+data._id+"'><i class='fas fa-trash' style='color: #d22e2e;'></i></a>"+
@@ -290,11 +263,12 @@
 					$('.nav-tabs a[href="#cadastrar-div"]').removeClass('disabled');
 			  }
 		});
+		$("html, body").animate({ scrollTop: 0 }, "slow");
 		$("#loading").fadeOut();
 	}
 	
 	$(document).ready(function(){
-	  $("#myInput").on("keyup", function() {
+	  $("#search").on("keyup", function() {
 		var value = $(this).val().toLowerCase();
 		$("#table-motoristas tr").filter(function() {
 		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -302,5 +276,6 @@
 	  });
 	});
 	
+	$("#loading").fadeIn();
 	getAllMot();
 	
